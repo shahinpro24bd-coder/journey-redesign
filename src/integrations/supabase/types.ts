@@ -117,6 +117,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_admin_configured: { Args: never; Returns: boolean }
     }
     Enums: {
       app_role: "admin"
