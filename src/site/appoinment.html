@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>Dr. Zaid Khaled Alamoudi | Appointment | General Dentist</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="Dr. Zaid Khaled Alamoudi, general dentist, Amman, restorative dentistry, cosmetic dental treatment, zirconia crown rehabilitation" name="keywords">
+<meta
+    content="Dr. Zaid Khaled Alamoudi is a General Dentist in Amman, Jordan. Appointments in Amman."
+    name="description">
+
+
+
+    <link href="/favicon.png" rel="icon" type="image/png"><link href="/favicon.png" rel="apple-touch-icon">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Playfair+Display:wght@500&family=Work+Sans&display=swap"
+        rel="stylesheet">
+
+
+    <link href="/icons-local.css" rel="stylesheet">
+
+
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* ===== Contact Info Cards with Dotted Borders ===== */
+        .contact-info-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px dashed rgba(0, 84, 48, 0.25);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-info-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--bs-primary), #63B08B, var(--bs-primary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .contact-info-card:hover::after { transform: scaleX(1); }
+        .contact-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 84, 48, 0.18);
+            border-color: var(--bs-primary);
+            border-style: solid;
+        }
+        .contact-info-card .icon-circle {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 2px dashed var(--bs-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            transition: all 0.4s ease;
+        }
+        .contact-info-card:hover .icon-circle {
+            background: linear-gradient(135deg, var(--bs-primary), #63B08B);
+            border-style: solid;
+            transform: scale(1.1) rotate(5deg);
+        }
+        .contact-info-card .icon-circle i {
+            font-size: 1.5rem;
+            color: var(--bs-primary);
+            transition: color 0.4s ease;
+        }
+        .contact-info-card:hover .icon-circle i { color: #fff; }
+        .contact-info-card h5 {
+            font-family: "Playfair Display", serif;
+            font-weight: 500;
+            color: var(--bs-dark);
+            margin-bottom: 0.5rem;
+        }
+        .contact-info-card p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        .contact-info-card a {
+            color: var(--bs-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-info-card a:hover { text-decoration: underline; }
+
+        /* ===== Contact Form Card ===== */
+        .contact-form-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 3rem;
+            border: 2px dashed rgba(0, 84, 48, 0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+        .contact-form-card .form-control {
+            border: 1px dashed rgba(0, 84, 48, 0.3);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+        }
+        .contact-form-card .form-control:focus {
+            border-style: solid;
+            border-color: var(--bs-primary);
+            box-shadow: 0 0 0 0.2rem rgba(0, 84, 48, 0.15);
+        }
+
+        /* ===== Social Links ===== */
+        .social-link-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 1.5rem;
+            border: 2px dashed rgba(0, 84, 48, 0.2);
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+        .social-link-card:hover {
+            border-style: solid;
+            border-color: var(--bs-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 84, 48, 0.12);
+            text-decoration: none;
+        }
+        .social-link-card .social-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0, 84, 48, 0.15), rgba(0, 84, 48, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+        .social-link-card:hover .social-icon {
+            background: linear-gradient(135deg, var(--bs-primary), #63B08B);
+        }
+        .social-link-card .social-icon i {
+            color: var(--bs-primary);
+            font-size: 1.2rem;
+            transition: color 0.4s ease;
+        }
+        .social-link-card:hover .social-icon i { color: #fff; }
+        .social-link-card h6 {
+            font-family: "Playfair Display", serif;
+            color: var(--bs-dark);
+            margin-bottom: 0.15rem;
+        }
+        .social-link-card p {
+            font-size: 0.82rem;
+            color: #888;
+            margin-bottom: 0;
+        }
+
+        /* ===== Letter Preview Overlay ===== */
+        .letter-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInOverlay 0.3s ease;
+        }
+        .letter-overlay.active { display: flex; }
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .letter-card {
+            background: #fff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            padding: 2.5rem;
+            position: relative;
+            border: 2px dashed var(--bs-primary);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            animation: slideUpLetter 0.4s ease;
+        }
+        @keyframes slideUpLetter {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .letter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--bs-primary), #63B08B, var(--bs-primary));
+            border-radius: 16px 16px 0 0;
+        }
+        .letter-header {
+            text-align: center;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px dashed rgba(0, 84, 48, 0.25);
+            margin-bottom: 1.2rem;
+        }
+        .letter-header h4 {
+            font-family: "Playfair Display", serif;
+            color: var(--bs-dark);
+            margin-bottom: 0.25rem;
+        }
+        .letter-header p {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 0;
+        }
+        .letter-body .letter-row {
+            display: flex;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+        }
+        .letter-body .letter-row:last-child { border-bottom: none; }
+        .letter-body .letter-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--bs-primary);
+            font-weight: 600;
+            min-width: 80px;
+        }
+        .letter-body .letter-value {
+            color: #333;
+            font-size: 0.9rem;
+        }
+        .letter-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(0, 84, 48, 0.25);
+        }
+        .letter-footer .sending-text {
+            color: var(--bs-primary);
+            font-weight: 600;
+            font-family: "Playfair Display", serif;
+        }
+        .letter-footer .progress-bar-wrapper {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 84, 48, 0.15);
+            border-radius: 4px;
+            margin-top: 0.75rem;
+            overflow: hidden;
+        }
+        .letter-footer .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--bs-primary), #63B08B);
+            border-radius: 4px;
+            animation: fillProgress 2s linear forwards;
+        }
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .appo1 {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .appo2 {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .appo3 {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .appo4 {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .appo4:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .appo5 {
+            background: linear-gradient(135deg, #005430 0%, #004225 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .appo5 h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .appo5 p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .appo6 {
+            padding: 30px;
+        }
+
+        .appo7 {
+            margin-bottom: 20px;
+        }
+
+        .appo7 label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .appo7 input,
+        .appo7 textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .appo7 input:focus,
+        .appo7 textarea:focus {
+            border-color: #005430;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 84, 48, 0.1);
+        }
+
+        .appo7 textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .appo8 {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #005430 0%, #004225 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .appo8:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 84, 48, 0.4);
+        }
+
+        .appo8:active {
+            transform: translateY(0);
+        }
+
+        .appo9 {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .appo10 {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #005430;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .appo10:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .appo10 h3 {
+            color: #005430;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .appo10 p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .appo11 {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .appo11.show {
+            transform: translateX(0);
+        }
+
+        .appo11.error {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .appo11.success {
+            border-left: 4px solid #2ecc71;
+        }
+
+        .appo11 i {
+            font-size: 20px;
+        }
+
+        .appo11.error i {
+            color: #e74c3c;
+        }
+
+        .appo11.success i {
+            color: #2ecc71;
+        }
+
+        .appo11 p {
+            margin: 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .appo12 {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 992px) {
+            .appo2 {
+                flex-direction: column;
+            }
+            
+            .appo3 {
+                max-width: 100%;
+            }
+            
+            .appo9 {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .appo6 {
+                padding: 20px;
+            }
+            
+            .appo11 {
+                right: 10px;
+                left: 10px;
+                transform: translateY(-100px);
+            }
+            
+            .appo11.show {
+                transform: translateY(0);
+            }
+            
+            .appo9 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            .onl1 {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .onl2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .onl2 h1 {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .onl2 p {
+            font-size: 16px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .onl3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .onl4 {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .onl4:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .onl5 {
+            background: white;
+            color: #333;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .onl5::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #005430, #004225);
+            border-radius: 2px;
+        }
+
+        .onl5 h2 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #333;
+        }
+
+        .onl5 h2 i {
+            font-size: 28px;
+            color: #005430;
+            background: rgba(0, 84, 48, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .onl5:hover h2 i {
+            background: #005430;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .onl5 p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .onl6 {
+            padding: 30px;
+        }
+
+        .onl7 {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .onl8 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .onl8:last-child {
+            border-bottom: none;
+        }
+
+        .onl8 i {
+            color: #005430;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .onl8 div {
+            flex: 1;
+        }
+
+        .onl8 h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .onl8 p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .onl9 {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .onl10 {
+            flex: 1;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #005430 0%, #004225 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .onl10:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 84, 48, 0.4);
+            color: white;
+        }
+
+        .onl11 {
+            flex: 1;
+            padding: 12px 20px;
+            background: white;
+            color: #005430;
+            border: 2px solid #005430;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .onl11:hover {
+            background: #005430;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 84, 48, 0.3);
+        }
+
+        .onl12 {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .onl12 h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .onl12 h3 i {
+            color: #005430;
+        }
+
+        .onl13 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .onl14 {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #005430;
+        }
+
+        .onl14 h4 {
+            font-size: 16px;
+            color: #005430;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .onl14 p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .onl15 {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #005430, #004225);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 84, 48, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .onl16 {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0, 84, 48, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #005430;
+            background: rgba(0, 84, 48, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .onl3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .onl9 {
+                flex-direction: column;
+            }
+            
+            .onl2 h1 {
+                font-size: 26px;
+            }
+            
+            .onl13 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .onl6 {
+                padding: 20px;
+            }
+            
+            .onl2 h1 {
+                font-size: 22px;
+            }
+            
+            .onl2 p {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <link href="theme-gold.css" rel="stylesheet">
+</head>
+
+<body>
+
+ <!-- nav -->
+    <div class="container-fluid bg-light sticky-top p-0">
+        <nav class="navbar navbar-expand-lg navbar-light p-0">
+            <a href="index.html" class="navbar-brand py-2 px-3 me-0">
+                <img loading="lazy" decoding="async" src="/img/dr-zaid-logo.png"
+                    alt="Dr. Zaid Khaled Alamoudi - General Dentist"
+                    style="height: 70px; width: auto; display: block; object-fit: contain;">
+                <span class="navbar-brand-copy">
+                    <strong>Dr. Zaid Khaled Alamoudi</strong>
+                    <small>General Dentist</small>
+                </span>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse p-3" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="service.html" class="nav-item nav-link">Treatments</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="navbar-actions">
+                    <div class="navbar-languages" aria-label="Language selector"></div>
+                    <a class="btn btn-sm btn-primary" href="contact.html">Book an Appointment</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- nav -->
+
+
+    <div class="container-fluid page-header py-5 mb-5">
+        <div class="container text-center py-5">
+            <h1 class="display-1 animated slideInLeft">Book an Appointment</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center animated slideInLeft mb-0">
+                    <li class="breadcrumb-item"><a class="text-primary" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Appointment</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+
+    <div class="onl1">
+        <div class="onl2">
+            <h1>Online Appointment and Consultation</h1>
+            <p>You can easily book an appointment by contacting us directly by phone or WhatsApp. Choose whichever of the two contact channels below suits you and set your preferred time.</p>
+        </div>
+
+        <div class="onl3">
+            <div class="onl4">
+                <div class="onl5">
+                    <div class="onl16">1</div>
+                    <span class="onl15">Popular</span>
+                    <h2><i class="fas fa-stethoscope"></i> Appointment by Phone</h2>
+                    <p>Contact Dr. Zaid directly by phone</p>
+                </div>
+                <div class="onl6">
+                    <div class="onl7">
+                        <div class="onl8">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4>Quick Appointment</h4>
+                                <p>Set a convenient time with a single call</p>
+                            </div>
+                        </div>
+                        <div class="onl8">
+                            <i class="fas fa-video"></i>
+                            <div>
+                                <h4>Preliminary Information</h4>
+                                <p>Get preliminary information about your treatment by phone</p>
+                            </div>
+                        </div>
+                        <div class="onl8">
+                            <i class="fas fa-calendar-check"></i>
+                            <div>
+                                <h4>Flexible Hours</h4>
+                                <p>Call anytime during consultation hours</p>
+                            </div>
+                        </div>
+                        <div class="onl8">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Trusted Communication</h4>
+                                <p>Secure conversation via the direct doctor line</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="onl9">
+                        <a href="contact.html" class="onl10">
+                            <i class="fas fa-calendar-plus"></i>
+                            Call for Appointment
+                        </a>
+                        <a href="contact.html" class="onl11">
+                            <i class="fas fa-info-circle"></i>
+                            Call 0776994488
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="onl4">
+                <div class="onl5">
+                    <div class="onl16">2</div>
+                    <span class="onl15">Recommended</span>
+                    <h2><i class="fas fa-user-md"></i> Appointment via WhatsApp</h2>
+                    <p>Contact Dr. Zaid via WhatsApp</p>
+                </div>
+                <div class="onl6">
+                    <div class="onl7">
+                        <div class="onl8">
+                            <i class="fas fa-user-md"></i>
+                            <div>
+                                <h4>Expert Guidance</h4>
+                                <p>Ask about an appointment or dental treatment directly</p>
+                            </div>
+                        </div>
+                        <div class="onl8">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Flexible Scheduling</h4>
+                                <p>Book your appointment at a time that suits you</p>
+                            </div>
+                        </div>
+                        <div class="onl8">
+                            <i class="fas fa-file-medical"></i>
+                            <div>
+                                <h4>Digital Record</h4>
+                                <p>All your correspondence is stored digitally</p>
+                            </div>
+                        </div>
+                        <div class="onl8">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <h4>Follow-up Support</h4>
+                                <p>Post-treatment follow-up support and consultation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="onl9">
+                        <a href="contact.html" target="_blank" class="onl10">
+                            <i class="fas fa-calendar-plus"></i>
+                            Book via WhatsApp
+                        </a>
+                        <a href="contact.html" target="_blank" class="onl11">
+                            <i class="fas fa-info-circle"></i>
+                            WhatsApp 0776994488
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="onl12">
+            <h3><i class="fas fa-lightbulb"></i> Benefits of Booking an Appointment</h3>
+            <div class="onl13">
+                <div class="onl14">
+                    <h4><i class="fas fa-home"></i> Easy Access</h4>
+                    <p>Book your appointment by phone or WhatsApp without leaving home</p>
+                </div>
+                <div class="onl14">
+                    <h4><i class="fas fa-save"></i> Save Time</h4>
+                    <p>His clinical focus includes aesthetic composite fillings, professional teeth cleaning and whitening, and full-mouth rehabilitation with zirconia crowns.</p>
+                </div>
+                <div class="onl14">
+                    <h4><i class="fas fa-bell"></i> Automatic Reminder</h4>
+                    <p>You will receive a reminder before your appointment</p>
+                </div>
+                <div class="onl14">
+                    <h4><i class="fas fa-history"></i> Record Keeping</h4>
+                    <p>All your treatment information is stored securely</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="appo11" class="appo11">
+        <i class="fas fa-exclamation-circle"></i>
+        <p id="appo18"></p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- footer -->
+      <!-- Footer -->
+    <div class="container-fluid footer position-relative bg-dark text-white-50 py-5 mt-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-6 pe-lg-5">
+                    <a href="#" class="navbar-brand"><img loading="lazy" decoding="async" src="/img/dr-zaid-logo.png" alt="Dr. Zaid Khaled Alamoudi" style="height: 80px; width: auto; object-fit: contain; margin-bottom: 1rem; filter: brightness(0) invert(1);"></a>
+
+                <h5 class="footer-about-title">About Dr. Zaid Khaled Alamoudi</h5>
+                <p class="footer-about-copy">Dr. Zaid Khaled Alamoudi is a general dentist based in Amman, Jordan. He earned his Bachelor’s degree in Dentistry from Meru University of Science and Technology in Kenya (2018–2023).</p>
+                <p class="footer-about-copy">Every consultation begins with listening. Treatment is planned carefully around each patient’s dental needs, comfort and goals.</p>
+                <p class="footer-about-credentials">Bachelor of Dentistry, Meru University of Science and Technology<br>General Dentist in Amman<br>General Dentist based in Amman</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-2"></i>By appointment in Amman</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-2"></i>0776994488</p>
+                    <p class="mb-2"><i class="fab fa-whatsapp me-2"></i>WhatsApp: 0776994488</p>
+                    <div class="d-flex justify-content-start mt-4">
+                        <a class="btn btn-sm-square btn-primary me-3" href="https://www.instagram.com/drzaidamoudi/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-sm-square btn-primary me-3" href="https://www.threads.com/@drzaidamoudi" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a class="btn btn-sm-square btn-primary me-3" href="https://ngl.link/zaidkhaled00" target="_blank" rel="noopener noreferrer" aria-label="NGL"><i class="fas fa-link"></i></a>
+                        <a class="btn btn-sm-square btn-primary me-3" href="https://wa.me/962776994488" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <div class="row g-4">
+                        <div class="col-sm-6">
+                            <h5 class="text-primary mb-4">Treatments</h5>
+                            <a class="btn btn-link" href="service.html">Teeth Cleaning</a>
+                            <a class="btn btn-link" href="service.html">Aesthetic Composite Fillings</a>
+                            <a class="btn btn-link" href="service.html">Teeth Cleaning &amp; Whitening</a>
+                            <a class="btn btn-link" href="service.html">Professional Whitening</a>
+                            <a class="btn btn-link" href="service.html">Teeth Cleaning & Whitening</a>
+                            <a class="btn btn-link" href="service.html">Zirconia Crowns</a>
+                            <a class="btn btn-link" href="service.html">Dental Consultation</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5 class="text-primary mb-4">Quick Links</h5>
+                            <a class="btn btn-link" href="about.html">About</a>
+                            <a class="btn btn-link" href="contact.html">Contact</a>
+                            <a class="btn btn-link" href="service.html">Treatments</a>
+                            <a class="btn btn-link" href="index.html">Home</a>
+                        </div>
+                        <div class="col-sm-12">
+                            <h5 class="text-primary mb-4">Consultation Hours</h5>
+                            <p class="text-white-50 mb-0"><strong>Appointments:</strong> By appointment<br>
+                            <strong>Phone / WhatsApp:</strong> By appointment<br>
+                            <strong>Location:</strong> By appointment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid bg-dark text-white border-top border-secondary py-4 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">&copy; 2026 <a class="border-bottom" href="#">Dr. Zaid Khaled Alamoudi</a> - All rights reserved.</div>
+                <div class="col-md-6 text-center text-md-end">Designed By <a class="border-bottom" href="https://www.instagram.com/drzaidamoudi/" target="_blank">Dr. Zaid Khaled Alamoudi</a></div>
+            </div>
+        </div>
+    </div>
+        <!-- footer -->
+
+
+
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <script src="lib/jquery/jquery.min.js" defer></script>
+    <script src="lib/bootstrap/bootstrap.bundle.min.js" defer></script>
+    <script src="lib/wow/wow.min.js" defer></script>
+    <script src="lib/easing/easing.min.js" defer></script>
+    <script src="lib/waypoints/waypoints.min.js" defer></script>
+    <script src="lib/counterup/counterup.min.js" defer></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js" defer></script>
+
+
+    <script src="js/main.js" defer></script>
+
+
+    <script>
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var subject = document.getElementById('subject').value.trim();
+            var message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !subject || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Fill preview
+            document.getElementById('previewName').textContent = name;
+            document.getElementById('previewEmail').textContent = email;
+            document.getElementById('previewPhone').textContent = phone || 'Not provided';
+            document.getElementById('previewSubject').textContent = subject;
+            document.getElementById('previewMessage').textContent = message;
+
+            // Show letter preview overlay
+            var overlay = document.getElementById('letterOverlay');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // After 2 seconds, close preview and open mailto
+            setTimeout(function () {
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+
+                var mailTo = '0776994488';
+                var mailSubject = encodeURIComponent(subject);
+                var mailBody = encodeURIComponent(
+                    'Dear Dr. Zaid Khaled Alamoudi,\n\n' +
+                    message + '\n\n' +
+                    '---\n' +
+                    'Patient Name: ' + name + '\n' +
+                    'Email: ' + email + '\n' +
+                    'Phone: ' + (phone || 'N/A') + '\n\n' +
+                    'Sent from Dr. Zaid Khaled Alamoudi\'s Website Contact Form'
+                );
+
+                window.location.href = 'https://api.whatsapp.com/send?phone=962776994488&text=' + encodeURIComponent(mailSubject + '\n' + mailBody);
+
+                // Reset form
+                document.getElementById('contactForm').reset();
+            }, 2000);
+        }
+
+        // Close overlay on outside click
+        var letterOverlay = document.getElementById('letterOverlay');
+        if (letterOverlay) {
+            letterOverlay.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+        // Set minimum date to today
+        var appointmentDate = document.getElementById('appo16');
+        if (appointmentDate) {
+            appointmentDate.min = new Date().toISOString().split('T')[0];
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('appo11');
+            const notificationText = document.getElementById('appo18');
+            const icon = notification.querySelector('i');
+            
+            notificationText.textContent = message;
+            notification.className = `appo11 ${type} show`;
+            
+            if (type === 'error') {
+                icon.className = 'fas fa-exclamation-circle';
+            } else {
+                icon.className = 'fas fa-check-circle';
+            }
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function sendToWhatsApp() {
+            // Get form values
+            const name = document.getElementById('appo14').value.trim();
+            const phone = document.getElementById('appo15').value.trim();
+            const date = document.getElementById('appo16').value;
+            const message = document.getElementById('appo17').value.trim();
+            
+            // Validate required fields
+            if (!name) {
+                showNotification('Please enter your full name', 'error');
+                document.getElementById('appo14').focus();
+                return;
+            }
+            
+            if (!phone) {
+                showNotification('Please enter your phone number', 'error');
+                document.getElementById('appo15').focus();
+                return;
+            }
+            
+            // Format the message
+            let formattedMessage = "Appointment Request:\n";
+            formattedMessage += `Full Name: ${name}\n`;
+            formattedMessage += `Telefon: ${phone}\n`;
+            
+            if (date) {
+                formattedMessage += `Tarih: ${formatDate(date)}\n`;
+            }
+            
+            if (message) {
+                formattedMessage += `Mesaj: ${message}`;
+            }
+            
+            // Encode the message
+            const encodedMessage = encodeURIComponent(formattedMessage);
+            
+            // WhatsApp phone number (without + and 0)
+            const phoneNumber = "962776994488";
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`;
+            
+            // Show success notification
+            showNotification('Redirecting you to WhatsApp...', 'success');
+            
+            // Open WhatsApp in a new tab after a short delay
+            setTimeout(() => {
+                window.open(whatsappURL, '_blank');
+            }, 500);
+        }
+        
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('tr-TR', options);
+        }
+
+        // Add enter key support for form submission
+        var appointmentForm = document.getElementById('appo13');
+        if (appointmentForm) {
+            appointmentForm.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendToWhatsApp();
+                }
+            });
+        }
+    
+    </script>
+    <script src="js/i18n.js" defer></script>
+    <script src="js/speed.js" defer></script>
+</body>
+
+</html>

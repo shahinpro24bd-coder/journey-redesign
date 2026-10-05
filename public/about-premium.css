@@ -1,0 +1,676 @@
+/* About page — Editorial Ivory Gold refinement layer */
+body.about-editorial {
+    --about-paper: #faf9f6;
+    --about-surface: #ffffff;
+    --about-ink: #2d2d2d;
+    --about-copy: #625f59;
+    --about-muted: #918b82;
+    --about-gold: #005430;
+    --about-gold-deep: #00331a;
+    --about-line: rgba(0, 84, 48, 0.28);
+    --about-soft-line: #e8e3da;
+    background: var(--about-paper);
+    color: var(--about-ink);
+}
+
+body.about-editorial .page-header {
+    margin-bottom: 0 !important;
+    min-height: 330px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    isolation: isolate;
+}
+
+body.about-editorial .page-header::after {
+    content: "";
+    position: absolute;
+    inset: auto 50% 0;
+    width: 1px;
+    height: 44px;
+    background: var(--about-gold);
+    z-index: 2;
+}
+
+body.about-editorial .page-header .container {
+    position: relative;
+    z-index: 1;
+}
+
+body.about-editorial .page-header h1 {
+    font-size: clamp(3.25rem, 7vw, 6.7rem);
+    font-weight: 500;
+    line-height: 1;
+    text-shadow: 0 3px 20px rgba(0, 0, 0, 0.35);
+}
+
+body.about-editorial .page-header .breadcrumb {
+    margin-top: 1.35rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+body.about-editorial .about-story,
+body.about-editorial .about-education,
+body.about-editorial .about-experience,
+body.about-editorial .about-expertise,
+body.about-editorial .about-journey {
+    padding-top: 7rem !important;
+    padding-bottom: 7rem !important;
+    background: var(--about-paper) !important;
+    overflow: hidden;
+}
+
+body.about-editorial .about-story .container,
+body.about-editorial .about-education .container,
+body.about-editorial .about-experience .container,
+body.about-editorial .about-expertise .container,
+body.about-editorial .about-journey .container {
+    max-width: 1180px;
+}
+
+/* Biography — framed portrait and unboxed editorial copy */
+body.about-editorial .about-story .about-intro-row {
+    --bs-gutter-x: 6rem;
+    align-items: center;
+}
+
+body.about-editorial .about-story .about-profile-column {
+    position: relative;
+    padding: 1.35rem 0 0 1.35rem;
+}
+
+body.about-editorial .about-story .about-profile-column::before {
+    content: "";
+    position: absolute;
+    inset: 0 1.35rem 11.7rem 0;
+    border: 1px solid var(--about-line);
+    pointer-events: none;
+}
+
+body.about-editorial .about-story .about-img-responsive {
+    position: relative;
+    min-height: 660px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 0;
+    box-shadow: 0 24px 56px rgba(45, 45, 45, 0.13);
+    filter: saturate(0.88) contrast(1.02);
+    transition: filter 600ms ease, transform 600ms ease;
+}
+
+body.about-editorial .about-story .about-profile-column:hover .about-img-responsive {
+    filter: saturate(1) contrast(1.02);
+    transform: translateY(-4px);
+}
+
+body.about-editorial .about-story .about-profile-column > .d-flex {
+    margin: 0 !important;
+    min-height: 92px;
+    border: 0 !important;
+    border-radius: 0 !important;
+}
+
+body.about-editorial .about-story .about-profile-column > .d-flex:nth-of-type(1) {
+    margin-top: 1.25rem !important;
+    background: var(--about-surface) !important;
+    border: 1px solid var(--about-soft-line) !important;
+    border-bottom: 0 !important;
+}
+
+body.about-editorial .about-story .about-profile-column > .d-flex:nth-of-type(2) {
+    background: var(--about-ink) !important;
+}
+
+body.about-editorial .about-story .about-profile-column .btn-square,
+body.about-editorial .about-story .about-profile-column > .d-flex > div:first-child {
+    width: 82px !important;
+    height: 92px !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    border-right: 1px solid var(--about-line);
+}
+
+body.about-editorial .about-story .about-profile-column > .d-flex:nth-of-type(1) i {
+    color: var(--about-gold-deep) !important;
+}
+
+body.about-editorial .about-story .about-profile-column h3 {
+    margin-bottom: 0.2rem;
+    font-size: 1.18rem;
+}
+
+body.about-editorial .about-story .col-lg-6:last-child {
+    padding-top: 1rem;
+}
+
+body.about-editorial .about-story .font-dancing-script {
+    margin-bottom: 0.55rem;
+    font-size: 2rem;
+}
+
+body.about-editorial .about-story .col-lg-6:last-child > h1:nth-of-type(2) {
+    margin-bottom: 2rem !important;
+    font-size: clamp(2.5rem, 4vw, 4.2rem);
+    line-height: 1.08;
+    font-style: italic;
+    font-weight: 500;
+}
+
+body.about-editorial .about-story .col-lg-6:last-child > p {
+    margin-bottom: 1.1rem !important;
+    color: var(--about-copy);
+    line-height: 1.85;
+}
+
+body.about-editorial .about-story .col-lg-6:last-child > p.text-primary {
+    padding: 0 0 1.15rem 1.25rem;
+    border-left: 2px solid var(--about-gold);
+    color: var(--about-ink) !important;
+    font-family: "Playfair Display", serif;
+    font-size: 1.08rem;
+    font-weight: 500 !important;
+}
+
+body.about-editorial .about-story .badge {
+    border: 0 !important;
+    border-bottom: 1px solid var(--about-line) !important;
+    border-radius: 0 !important;
+    padding: 0 0 0.75rem !important;
+    background: transparent !important;
+    color: var(--about-gold-deep) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+body.about-editorial .about-story h5 {
+    margin-top: 2.1rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--about-line);
+    font-size: 1.35rem;
+}
+
+body.about-editorial .credential-pill {
+    margin: 0 1rem 0.65rem 0;
+    padding: 0.25rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--about-copy);
+}
+
+body.about-editorial .credential-pill:hover {
+    background: transparent;
+    color: var(--about-gold-deep);
+}
+
+body.about-editorial .credential-pill i,
+body.about-editorial .credential-pill:hover i {
+    color: var(--about-gold);
+    font-size: 0.72rem;
+}
+
+body.about-editorial .about-story .btn-primary {
+    margin-top: 1.25rem;
+    border-radius: 0;
+    letter-spacing: 0.1em;
+    box-shadow: 7px 7px 0 var(--about-line);
+    transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+body.about-editorial .about-story .btn-primary:hover {
+    transform: translate(3px, 3px);
+    box-shadow: 4px 4px 0 var(--about-line);
+}
+
+/* Shared chapter heading */
+body.about-editorial .about-education,
+body.about-editorial .about-expertise {
+    border-top: 1px solid var(--about-soft-line);
+}
+
+body.about-editorial .about-experience,
+body.about-editorial .about-journey {
+    background: #f4f1eb !important;
+    border-top: 1px solid var(--about-soft-line);
+}
+
+body.about-editorial .about-education .text-center,
+body.about-editorial .about-experience .text-center,
+body.about-editorial .about-expertise .text-center,
+body.about-editorial .about-journey .text-center {
+    display: grid;
+    grid-template-columns: minmax(170px, 0.36fr) 1fr;
+    gap: 4rem;
+    align-items: end;
+    text-align: left !important;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--about-line);
+}
+
+body.about-editorial .about-education .text-center .font-dancing-script,
+body.about-editorial .about-experience .text-center .font-dancing-script,
+body.about-editorial .about-expertise .text-center .font-dancing-script,
+body.about-editorial .about-journey .text-center .font-dancing-script {
+    margin: 0;
+    font-family: "Work Sans", sans-serif !important;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+}
+
+body.about-editorial .about-education .text-center h1:last-child,
+body.about-editorial .about-experience .text-center h1:last-child,
+body.about-editorial .about-expertise .text-center h1:last-child,
+body.about-editorial .about-journey .text-center h1:last-child {
+    margin: 0 !important;
+    font-size: clamp(2.25rem, 4vw, 3.75rem);
+    line-height: 1.08;
+    font-weight: 500;
+}
+
+/* Education — archival records */
+body.about-editorial .about-education .row.g-4,
+body.about-editorial .about-experience .row.g-4,
+body.about-editorial .about-expertise .row.g-4 {
+    --bs-gutter-y: 0;
+    margin-top: 0;
+}
+
+body.about-editorial .about-education .row.g-4 > div {
+    width: 100%;
+}
+
+body.about-editorial .cred-custom-card {
+    min-height: auto;
+    display: grid;
+    grid-template-columns: minmax(250px, 0.75fr) 1.25fr;
+    gap: 3rem;
+    align-items: start;
+    padding: 2.1rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--about-soft-line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transition: padding 350ms ease, border-color 350ms ease;
+}
+
+body.about-editorial .cred-custom-card:hover {
+    padding-left: 1rem;
+    border-color: var(--about-gold);
+    transform: none;
+    box-shadow: none;
+}
+
+body.about-editorial .cred-icon-title {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 1rem;
+}
+
+body.about-editorial .cred-icon-box {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--about-line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+body.about-editorial .cred-icon-box i {
+    color: var(--about-gold-deep);
+}
+
+body.about-editorial .cred-title {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.3;
+}
+
+body.about-editorial .cred-body {
+    color: var(--about-copy);
+}
+
+body.about-editorial .cred-body p {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+}
+
+/* Experience — numbered editorial tiles */
+body.about-editorial .about-experience .row.g-4 {
+    counter-reset: experience;
+}
+
+body.about-editorial .about-experience .row.g-4 > div {
+    counter-increment: experience;
+}
+
+body.about-editorial .qual-card {
+    position: relative;
+    min-height: 235px;
+    display: block;
+    padding: 4.4rem 2rem 2rem;
+    border: 1px solid var(--about-soft-line);
+    border-radius: 0;
+    background: var(--about-surface);
+    box-shadow: none;
+    overflow: hidden;
+}
+
+body.about-editorial .qual-card::before {
+    content: "0" counter(experience);
+    position: absolute;
+    top: 1.35rem;
+    right: 1.5rem;
+    color: rgba(0, 84, 48, 0.35);
+    font-family: "Playfair Display", serif;
+    font-size: 1.8rem;
+}
+
+body.about-editorial .qual-card::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 3px;
+    background: var(--about-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 350ms ease;
+}
+
+body.about-editorial .qual-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--about-line);
+    box-shadow: 0 20px 42px rgba(45, 45, 45, 0.08);
+}
+
+body.about-editorial .qual-card:hover::after {
+    transform: scaleX(1);
+}
+
+body.about-editorial .qual-card .qual-icon {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.75rem;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border: 1px solid var(--about-line);
+    border-radius: 50%;
+    background: transparent;
+}
+
+body.about-editorial .qual-card:hover .qual-icon {
+    background: var(--about-gold);
+}
+
+body.about-editorial .qual-card h6 {
+    margin-bottom: 0.85rem;
+    font-size: 1.2rem;
+    line-height: 1.35;
+}
+
+body.about-editorial .qual-card p {
+    margin-bottom: 0.45rem;
+    color: var(--about-copy);
+    line-height: 1.65;
+}
+
+/* Expertise — horizontal catalogue entries */
+body.about-editorial .about-expertise .row.g-4 > div {
+    width: 50%;
+}
+
+body.about-editorial .membership-card {
+    min-height: 245px;
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    padding: 2rem;
+    border: 0;
+    border-top: 1px solid var(--about-soft-line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transition: background 350ms ease, padding 350ms ease;
+}
+
+body.about-editorial .membership-card:hover {
+    padding-left: 2.6rem;
+    background: var(--about-surface);
+    transform: none;
+    box-shadow: none;
+}
+
+body.about-editorial .membership-icon {
+    width: 62px;
+    height: 74px;
+    border-radius: 0;
+    background: var(--about-ink);
+    box-shadow: none;
+}
+
+body.about-editorial .membership-icon i {
+    color: var(--about-gold);
+}
+
+body.about-editorial .membership-org {
+    margin: 0 0 0.8rem;
+    color: var(--about-ink);
+    font-size: 1.35rem;
+}
+
+body.about-editorial .membership-name {
+    color: var(--about-copy);
+    line-height: 1.75;
+}
+
+/* Journey — clean timeline + dark dossier */
+body.about-editorial .about-journey .row.g-5 {
+    --bs-gutter-x: 5rem;
+}
+
+body.about-editorial .about-journey h4 {
+    margin-bottom: 2rem !important;
+    font-size: 1.65rem;
+    font-weight: 500;
+}
+
+body.about-editorial .timeline-item {
+    padding: 0 0 2.1rem 2.25rem;
+    border-left: 1px solid var(--about-line);
+}
+
+body.about-editorial .timeline-item:last-child {
+    border-left: 1px solid transparent;
+}
+
+body.about-editorial .timeline-item::before {
+    left: -5px;
+    width: 9px;
+    height: 9px;
+    border: 0;
+    background: var(--about-gold);
+    box-shadow: 0 0 0 5px #f4f1eb;
+}
+
+body.about-editorial .timeline-item h5 {
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+body.about-editorial .timeline-item p {
+    color: var(--about-copy);
+    line-height: 1.65;
+}
+
+body.about-editorial .profile-card {
+    border: 0;
+    border-radius: 0;
+    background: var(--about-ink);
+    box-shadow: 14px 14px 0 var(--about-line);
+}
+
+body.about-editorial .profile-card:hover {
+    border: 0;
+    box-shadow: 9px 9px 0 var(--about-gold);
+    transform: translate(3px, 3px);
+}
+
+body.about-editorial .profile-card-header {
+    padding: 2.5rem;
+    text-align: left;
+    background: transparent;
+    border-bottom: 1px solid rgba(0, 84, 48, 0.45);
+}
+
+body.about-editorial .profile-card-header h3 {
+    color: #faf9f6;
+    font-size: 2rem;
+}
+
+body.about-editorial .profile-card-header p {
+    color: #c8c2b8;
+    line-height: 1.6;
+}
+
+body.about-editorial .profile-card-body {
+    padding: 1.3rem 2.5rem 2rem;
+}
+
+body.about-editorial .profile-detail {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+body.about-editorial .profile-detail i {
+    color: var(--about-gold);
+}
+
+body.about-editorial .profile-detail .label {
+    color: var(--about-gold);
+    letter-spacing: 0.12em;
+}
+
+body.about-editorial .profile-detail .value {
+    color: #e7e2da;
+    font-weight: 400;
+    line-height: 1.55;
+}
+
+body.about-editorial .wow {
+    visibility: visible !important;
+    animation-name: aboutEditorialReveal !important;
+    animation-duration: 700ms !important;
+    animation-fill-mode: both !important;
+}
+
+@keyframes aboutEditorialReveal {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 991px) {
+    body.about-editorial .about-story,
+    body.about-editorial .about-education,
+    body.about-editorial .about-experience,
+    body.about-editorial .about-expertise,
+    body.about-editorial .about-journey {
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+    }
+
+    body.about-editorial .about-story .about-intro-row,
+    body.about-editorial .about-journey .row.g-5 {
+        --bs-gutter-x: 1.5rem;
+    }
+
+    body.about-editorial .about-story .about-img-responsive {
+        min-height: 0;
+    }
+
+    body.about-editorial .about-education .text-center,
+    body.about-editorial .about-experience .text-center,
+    body.about-editorial .about-expertise .text-center,
+    body.about-editorial .about-journey .text-center {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    body.about-editorial .about-expertise .row.g-4 > div {
+        width: 100%;
+    }
+}
+
+@media (max-width: 575px) {
+    body.about-editorial .page-header {
+        min-height: 255px;
+    }
+
+    body.about-editorial .page-header h1 {
+        font-size: 3rem;
+    }
+
+    body.about-editorial .about-story,
+    body.about-editorial .about-education,
+    body.about-editorial .about-experience,
+    body.about-editorial .about-expertise,
+    body.about-editorial .about-journey {
+        padding-top: 3.75rem !important;
+        padding-bottom: 3.75rem !important;
+    }
+
+    body.about-editorial .about-story .about-profile-column {
+        padding: 0.8rem 0 0 0.8rem;
+    }
+
+    body.about-editorial .about-story .about-profile-column::before {
+        inset: 0 0.8rem 11.7rem 0;
+    }
+
+    body.about-editorial .about-story .col-lg-6:last-child > h1:nth-of-type(2) {
+        font-size: 2.35rem;
+    }
+
+    body.about-editorial .cred-custom-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    body.about-editorial .membership-card {
+        min-height: auto;
+        grid-template-columns: 48px 1fr;
+        gap: 1rem;
+        padding: 1.5rem 0;
+    }
+
+    body.about-editorial .membership-card:hover {
+        padding-left: 0;
+    }
+
+    body.about-editorial .membership-icon {
+        width: 48px;
+        height: 58px;
+    }
+
+    body.about-editorial .profile-card-body,
+    body.about-editorial .profile-card-header {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.about-editorial *,
+    body.about-editorial *::before,
+    body.about-editorial *::after {
+        animation: none !important;
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
