@@ -4,14 +4,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ExternalLink,
   FileText,
-  ImagePlus,
-  Images,
   Loader2,
   LogOut,
+  PanelLeft,
   RotateCcw,
   Save,
   Search,
   ShieldCheck,
+  Undo2,
 } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
@@ -222,11 +222,9 @@ function Editor({ email }: { email: string }) {
   const [lang, setLang] = useState<Lang>("en");
   const [dirty, setDirty] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<Status>({ tone: "idle", message: "" });
-  const [images, setImages] = useState<{ slot: string; url: string }[]>([]);
   const [pageSearch, setPageSearch] = useState("");
-  const [imageSearch, setImageSearch] = useState("");
   const [reloadKey, setReloadKey] = useState(0);
-  const [mobilePanel, setMobilePanel] = useState<"pages" | "images" | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const page = PAGES.find((p) => p.id === pageId) ?? PAGES[0]!;
   const dirtyCount = Object.keys(dirty).length;
@@ -267,8 +265,7 @@ function Editor({ email }: { email: string }) {
     function onMessage(event: MessageEvent) {
       const data = event.data;
       if (!data || data.source !== "cms-editor") return;
-      if (data.type === "images" && Array.isArray(data.images)) setImages(data.images);
-      else if (data.type === "text") setDirty((prev) => ({ ...prev, [data.key]: data.value }));
+      if (data.type === "text") setDirty((prev) => ({ ...prev, [data.key]: data.value }));
       else if (data.type === "image" && data.file instanceof File) void saveImage(data.slot, data.file);
     }
     window.addEventListener("message", onMessage);
@@ -303,126 +300,114 @@ function Editor({ email }: { email: string }) {
   function switchTo(next: { pageId?: string; lang?: Lang }) {
     if (dirtyCount && !window.confirm("You have unpublished changes. Discard them?")) return;
     setDirty({});
-    setImages([]);
     if (next.pageId) setPageId(next.pageId);
     if (next.lang) setLang(next.lang);
-    setMobilePanel(null);
+    setMobileOpen(false);
   }
 
   const filteredPages = useMemo(
     () => PAGES.filter((p) => p.label.toLowerCase().includes(pageSearch.toLowerCase())),
     [pageSearch],
   );
-  const filteredImages = images.filter((i) => i.slot.includes(imageSearch.toLowerCase()));
 
-  const pagesPanel = (
-    <div className="flex h-full flex-col">
-      <div className="space-y-3 border-b border-border p-3">
-        <div className="grid grid-cols-2 gap-1 rounded-lg bg-muted p-1">
+  const sidebar = (
+    <div className="flex h-full flex-col gap-4 overflow-y-auto p-4">
+      <section className="rounded-2xl border border-border bg-background p-4 shadow-sm">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-foreground">Editing tools</h2>
+          <span className={"rounded-full px-2 py-0.5 text-[11px] font-medium " + (dirtyCount ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground")}>
+            {dirtyCount ? `${dirtyCount} unsaved` : "All saved"}
+          </span>
+        </div>
+
+        <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Language</p>
+        <div className="mb-4 grid grid-cols-2 gap-1 rounded-lg bg-muted p-1">
           {LANGS.map((l) => (
             <button
               key={l.code}
               type="button"
               onClick={() => switchTo({ lang: l.code })}
-              className={"rounded-md px-2 py-1.5 text-sm transition " + (lang === l.code ? "bg-background font-medium text-foreground shadow-sm" : "text-muted-foreground")}
+              className={"rounded-md px-2 py-1.5 text-sm transition " + (lang === l.code ? "bg-background font-medium text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground")}
             >
               {l.label}
             </button>
           ))}
         </div>
-        <div className="relative">
+
+        <div className="space-y-2">
+          <Button className="w-full" onClick={handlePublish} disabled={!dirtyCount || busy}>
+            <Save /> Publish changes
+          </Button>
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" size="sm" disabled={!dirtyCount || busy} onClick={() => { setDirty({}); setReloadKey((k) => k + 1); }}>
+              <Undo2 /> Discard
+            </Button>
+            <Button variant="outline" size="sm" onClick={handleReset} disabled={busy}>
+              <RotateCcw /> Restore
+            </Button>
+          </div>
+        </div>
+
+        {status.message ? (
+          <p className={"mt-3 rounded-md bg-muted px-2.5 py-2 text-xs " + (status.tone === "error" ? "text-destructive" : "text-muted-foreground")}>
+            {busy ? <Loader2 className="mr-1 inline size-3 animate-spin" /> : null}
+            {status.message}
+          </p>
+        ) : null}
+
+        <p className="mt-3 border-t border-border pt-3 text-xs leading-relaxed text-muted-foreground">
+          Click outlined text to edit it, click any image to replace it, then press Publish.
+        </p>
+      </section>
+
+      <section className="flex min-h-0 flex-col rounded-2xl border border-border bg-background p-3 shadow-sm">
+        <h2 className="mb-2 px-1 text-sm font-semibold text-foreground">Pages</h2>
+        <div className="relative mb-2">
           <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
           <Input value={pageSearch} onChange={(e) => setPageSearch(e.target.value)} placeholder="Search pages" className="pl-8" aria-label="Search pages" />
         </div>
-      </div>
-      <nav className="flex-1 overflow-y-auto p-2">
-        {["Main pages", "Treatment details"].map((group) => {
-          const items = filteredPages.filter((p) => p.group === group);
-          if (!items.length) return null;
-          return (
-            <div key={group} className="mb-3">
-              <p className="px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{group}</p>
-              {items.map((p) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => switchTo({ pageId: p.id })}
-                  className={"flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition " + (p.id === pageId ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-accent")}
-                >
-                  <FileText className="size-3.5 shrink-0" />
-                  <span className="truncate">{p.label}</span>
-                </button>
-              ))}
-            </div>
-          );
-        })}
-      </nav>
-    </div>
-  );
-
-  const imagesPanel = (
-    <div className="flex h-full flex-col">
-      <div className="space-y-2 border-b border-border p-3">
-        <h2 className="text-sm font-semibold text-card-foreground">Images on this page ({images.length})</h2>
-        <Input value={imageSearch} onChange={(e) => setImageSearch(e.target.value)} placeholder="Search images" aria-label="Search images" />
-      </div>
-      <ul className="flex-1 space-y-3 overflow-y-auto p-3">
-        {filteredImages.map((img) => (
-          <li key={img.slot} className="overflow-hidden rounded-lg border border-border">
-            <button
-              type="button"
-              title="Show on page"
-              className="block w-full"
-              onClick={() => frameRef.current?.contentWindow?.postMessage({ source: "cms-admin", type: "scroll-to", slot: img.slot }, "*")}
-            >
-              <img src={img.url} alt={img.slot} className="h-28 w-full bg-muted object-cover" />
-            </button>
-            <div className="flex items-center justify-between gap-2 p-2">
-              <span className="truncate text-xs text-muted-foreground">{img.slot}</span>
-              <Button
-                type="button"
-                size="sm"
-                variant="secondary"
-                disabled={busy}
-                onClick={() => {
-                  pendingSlot.current = img.slot;
-                  fileRef.current?.click();
-                }}
-              >
-                <ImagePlus /> Replace
-              </Button>
-            </div>
-          </li>
-        ))}
-        {!filteredImages.length ? <li className="text-xs text-muted-foreground">No images found.</li> : null}
-      </ul>
+        <nav>
+          {["Main pages", "Treatment details"].map((group) => {
+            const items = filteredPages.filter((p) => p.group === group);
+            if (!items.length) return null;
+            return (
+              <div key={group} className="mb-2">
+                <p className="px-2 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{group}</p>
+                {items.map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => switchTo({ pageId: p.id })}
+                    className={"flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition " + (p.id === pageId ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-accent")}
+                  >
+                    <FileText className="size-3.5 shrink-0" />
+                    <span className="truncate">{p.label}</span>
+                  </button>
+                ))}
+              </div>
+            );
+          })}
+        </nav>
+      </section>
     </div>
   );
 
   return (
     <div className="flex h-dvh min-h-0 flex-col bg-muted">
-      <header className="flex shrink-0 flex-wrap items-center gap-2 border-b border-border bg-card px-3 py-2.5">
+      <header className="flex shrink-0 items-center gap-3 border-b border-border bg-card px-4 py-3">
+        <Button size="icon" variant="outline" className="lg:hidden" onClick={() => setMobileOpen(true)} aria-label="Open editing tools">
+          <PanelLeft />
+        </Button>
+        <div className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+          <ShieldCheck className="size-5" />
+        </div>
         <div className="mr-auto min-w-0">
-          <p className="text-sm font-semibold text-card-foreground">Content Management</p>
+          <p className="text-sm font-semibold text-card-foreground">Admin Panel</p>
           <p className="truncate text-xs text-muted-foreground">
-            {page.label} · {lang === "en" ? "English" : "Arabic"} · {email}
+            Editing: {page.label} · {lang === "en" ? "English" : "Arabic"}
           </p>
         </div>
-        {status.message ? (
-          <span className={"order-last w-full text-xs sm:order-none sm:w-auto " + (status.tone === "error" ? "text-destructive" : "text-muted-foreground")}>
-            {busy ? <Loader2 className="mr-1 inline size-3 animate-spin" /> : null}
-            {status.message}
-          </span>
-        ) : null}
-        <Button size="sm" variant="outline" className="lg:hidden" onClick={() => setMobilePanel("pages")}><FileText /> Pages</Button>
-        <Button size="sm" variant="outline" className="lg:hidden" onClick={() => setMobilePanel("images")}><Images /> Images</Button>
-        <Button size="sm" onClick={handlePublish} disabled={!dirtyCount || busy}>
-          <Save /> Publish{dirtyCount ? ` (${dirtyCount})` : ""}
-        </Button>
-        {dirtyCount ? (
-          <Button size="sm" variant="ghost" onClick={() => { setDirty({}); setReloadKey((k) => k + 1); }}>Discard</Button>
-        ) : null}
-        <Button size="sm" variant="ghost" onClick={handleReset} disabled={busy} title="Restore original website"><RotateCcw /> <span className="hidden sm:inline">Restore</span></Button>
+        <span className="hidden text-xs text-muted-foreground md:inline">{email}</span>
         <a href={`${page.path}?lang=${lang}`} target="_blank" rel="noreferrer" className="inline-flex h-8 items-center gap-1.5 rounded-md px-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground">
           <ExternalLink className="size-4" /> <span className="hidden sm:inline">View site</span>
         </a>
@@ -430,20 +415,18 @@ function Editor({ email }: { email: string }) {
       </header>
 
       <div className="flex min-h-0 flex-1">
-        <aside className="hidden w-64 shrink-0 border-r border-border bg-card lg:block">{pagesPanel}</aside>
-        <main className="flex min-w-0 flex-1 flex-col p-2 sm:p-3">
-          <p className="mb-2 px-1 text-xs text-muted-foreground">Click outlined text to edit it, click any image to replace it, then press Publish.</p>
-          <iframe ref={frameRef} key={frameSrc} src={frameSrc} title="Website preview" className="min-h-0 flex-1 rounded-lg border border-border bg-background shadow-sm" />
+        <aside className="hidden w-80 shrink-0 border-r border-border bg-card lg:block">{sidebar}</aside>
+        <main className="flex min-w-0 flex-1 flex-col p-3 sm:p-4">
+          <iframe ref={frameRef} key={frameSrc} src={frameSrc} title="Website preview" className="min-h-0 flex-1 rounded-2xl border border-border bg-background shadow-sm" />
         </main>
-        <aside className="hidden w-72 shrink-0 border-l border-border bg-card lg:block">{imagesPanel}</aside>
       </div>
 
-      <Sheet open={mobilePanel !== null} onOpenChange={(o) => !o && setMobilePanel(null)}>
-        <SheetContent side={mobilePanel === "images" ? "right" : "left"} className="w-80 p-0">
-          <SheetHeader className="border-b border-border p-3 text-left">
-            <SheetTitle>{mobilePanel === "images" ? "Images" : "Pages & language"}</SheetTitle>
+      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent side="left" className="w-80 bg-card p-0">
+          <SheetHeader className="border-b border-border p-4 text-left">
+            <SheetTitle>Editing tools</SheetTitle>
           </SheetHeader>
-          <div className="h-[calc(100%-3.5rem)]">{mobilePanel === "images" ? imagesPanel : pagesPanel}</div>
+          <div className="h-[calc(100%-3.75rem)]">{sidebar}</div>
         </SheetContent>
       </Sheet>
 
