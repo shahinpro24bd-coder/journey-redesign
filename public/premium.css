@@ -1082,7 +1082,7 @@ html[lang="bn-off"] .hero-reference-word {
 /* ---------- mobile: editorial text restyle (mobile only) ---------- */
 @media (max-width: 620px) {
     /* keep the text clear of the sticky navbar */
-    .hero-reference { padding-top: 116px; }
+    .hero-reference { padding-top: 24px; }
 
     .hero-reference .hero-reference-copy {
         text-align: left;
