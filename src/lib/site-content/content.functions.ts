@@ -109,6 +109,8 @@ async function bumpVersion(context: Ctx) {
     published_by: context.userId,
   });
   if (error) throw new Error(error.message);
+  const { invalidateContentCache } = await import("./server");
+  invalidateContentCache();
 }
 const DEFAULT_ADMIN = { username: "admin", password: "admin123" };
 export const usernameToEmail = (u: string) => `${u.trim().toLowerCase().replace(/[^a-z0-9._-]/g, "")}@admin.local`;

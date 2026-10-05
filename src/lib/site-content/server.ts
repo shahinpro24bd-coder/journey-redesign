@@ -22,7 +22,28 @@ export type ContentSnapshot = {
 
 const SNAPSHOT = fallbackSnapshot as ContentSnapshot;
 
-export async function getContentSnapshot(_force = false): Promise<ContentSnapshot> {
+/** Short-lived in-memory copy so normal visitors don't wait on the database every request. */
+const SNAPSHOT_TTL_MS = 15_000;
+let cached: { at: number; value: ContentSnapshot } | null = null;
+let inflight: Promise<ContentSnapshot> | null = null;
+/** storage path -> long-lived signed URL (paths are unique per upload, so URLs never go stale). */
+const SIGNED_URLS = new Map<string, string>();
+
+export async function getContentSnapshot(force = false): Promise<ContentSnapshot> {
+  if (!force && cached && Date.now() - cached.at < SNAPSHOT_TTL_MS) return cached.value;
+  if (inflight) return inflight;
+  inflight = loadSnapshot()
+    .then((value) => {
+      cached = { at: Date.now(), value };
+      return value;
+    })
+    .finally(() => {
+      inflight = null;
+    });
+  return inflight;
+}
+
+async function loadSnapshot(): Promise<ContentSnapshot> {
   const url = process.env['SUPABASE_URL'];
   const key = process.env['SUPABASE_PUBLISHABLE_KEY'];
   if (!url || !key) return SNAPSHOT;
@@ -52,9 +73,16 @@ export async function getContentSnapshot(_force = false): Promise<ContentSnapsho
       if (isSiteLang(row.language)) langs[row.language][row.content_key] = row.value;
     }
     const images = { ...SNAPSHOT.images };
-    for (const row of imageResult.data ?? []) {
-      const { data } = await client.storage.from("site-content").createSignedUrl(row.storage_path, 3600);
-      if (data?.signedUrl) images[row.slot] = data.signedUrl;
+    const rows = imageResult.data ?? [];
+    const missing = rows.map((r) => r.storage_path).filter((p) => !SIGNED_URLS.has(p));
+    if (missing.length) {
+      // One batched request, URLs valid for a year so browsers can cache the images.
+      const { data } = await client.storage.from("site-content").createSignedUrls(missing, 60 * 60 * 24 * 365);
+      for (const item of data ?? []) if (item.path && item.signedUrl) SIGNED_URLS.set(item.path, item.signedUrl);
+    }
+    for (const row of rows) {
+      const signed = SIGNED_URLS.get(row.storage_path);
+      if (signed) images[row.slot] = signed;
     }
     return {
       ...SNAPSHOT,
@@ -68,5 +96,5 @@ export async function getContentSnapshot(_force = false): Promise<ContentSnapsho
 }
 
 export function invalidateContentCache() {
-  /* Versioned response keys naturally replace stale rendered pages. */
+  cached = null;
 }
