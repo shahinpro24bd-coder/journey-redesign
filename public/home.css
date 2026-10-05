@@ -1850,6 +1850,10 @@ html[lang="bn-off"] .hero-reference-word {
         display: none;
     }
 
+    .hero-reference-copy h1 span::before {
+        content: " ";
+    }
+
     .hero-reference-doctor {
         bottom: 140px;
         max-height: 41%;
