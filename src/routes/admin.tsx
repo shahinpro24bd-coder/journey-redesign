@@ -139,6 +139,23 @@ function LoginScreen() {
   );
 }
 
+/** Resizes large photos (max 1920px) and converts to WebP so uploads finish fast. */
+async function shrinkImage(file: File): Promise<Blob> {
+  if (file.type === "image/svg+xml" || file.type === "image/gif") return file;
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, 1920 / Math.max(bitmap.width, bitmap.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    canvas.getContext("2d")?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/webp", 0.85));
+    return blob && blob.size < file.size ? blob : file;
+  } catch {
+    return file;
+  }
+}
+
 async function signOut() {
   await supabase.auth.signOut();
 }
@@ -220,18 +237,17 @@ function Editor({ email }: { email: string }) {
   const saveImage = useCallback(
     async (slot: string, file: File) => {
       if (!file.type.startsWith("image/")) return setStatus({ tone: "error", message: "Please choose an image file." });
-      if (file.size > 5_000_000) return setStatus({ tone: "error", message: "Image is too large (max 5 MB)." });
+      if (file.size > 20_000_000) return setStatus({ tone: "error", message: "Image is too large (max 20 MB)." });
       setStatus({ tone: "busy", message: "Uploading image…" });
+      // Show the new image immediately while it uploads.
+      frameRef.current?.contentWindow?.postMessage({ source: "cms-admin", type: "image-saved", slot, url: URL.createObjectURL(file) }, "*");
       try {
-        const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+        const upload = await shrinkImage(file);
+        const ext = upload.type === "image/webp" ? "webp" : (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
         const path = `images/${slot}-${Date.now()}.${ext}`;
-        const { error } = await supabase.storage.from("site-content").upload(path, file, { contentType: file.type });
+        const { error } = await supabase.storage.from("site-content").upload(path, upload, { contentType: upload.type, cacheControl: "31536000" });
         if (error) throw error;
-        await publishImageFn({ data: { slot, storagePath: path, mimeType: file.type } });
-        const { data } = await supabase.storage.from("site-content").createSignedUrl(path, 3600);
-        if (data?.signedUrl) {
-          frameRef.current?.contentWindow?.postMessage({ source: "cms-admin", type: "image-saved", slot, url: data.signedUrl }, "*");
-        }
+        await publishImageFn({ data: { slot, storagePath: path, mimeType: upload.type } });
         setStatus({ tone: "ok", message: "Image published to the website." });
       } catch {
         setStatus({ tone: "error", message: "Image upload failed. Please try again." });
