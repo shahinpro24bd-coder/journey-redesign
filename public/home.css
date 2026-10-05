@@ -1850,8 +1850,9 @@ html[lang="bn-off"] .hero-reference-word {
         display: none;
     }
 
-    .hero-reference-copy h1 span::before {
-        content: " ";
+    .hero-reference .hero-reference-copy h1 span {
+        margin-left: .28em;
+        margin-top: 0;
     }
 
     .hero-reference-doctor {
