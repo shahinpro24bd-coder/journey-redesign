@@ -110,3 +110,31 @@ async function bumpVersion(context: Ctx) {
   });
   if (error) throw new Error(error.message);
 }
+const DEFAULT_ADMIN = { username: "admin", password: "admin123" };
+export const usernameToEmail = (u: string) => `${u.trim().toLowerCase().replace(/[^a-z0-9._-]/g, "")}@admin.local`;
+
+/** Creates the default admin account only while no admin exists yet. */
+export const ensureDefaultAdmin = createServerFn({ method: "POST" })
+  .inputValidator((d) => z.object({ username: z.string().max(100), password: z.string().max(200) }).parse(d))
+  .handler(async ({ data }) => {
+    if (data.username.trim().toLowerCase() !== DEFAULT_ADMIN.username || data.password !== DEFAULT_ADMIN.password) {
+      return { created: false };
+    }
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { count } = await supabaseAdmin.from("user_roles").select("id", { count: "exact", head: true }).eq("role", "admin");
+    if (count) {
+      console.error("Default admin skipped: admin already exists");
+      return { created: false };
+    }
+    const { data: u, error } = await supabaseAdmin.auth.admin.createUser({
+      email: usernameToEmail(DEFAULT_ADMIN.username),
+      password: DEFAULT_ADMIN.password,
+      email_confirm: true,
+    });
+    if (error || !u.user) {
+      console.error("Default admin creation failed:", error?.message);
+      return { created: false };
+    }
+    await supabaseAdmin.from("user_roles").insert({ user_id: u.user.id, role: "admin" });
+    return { created: true };
+  });
