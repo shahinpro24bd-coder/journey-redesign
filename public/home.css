@@ -1829,7 +1829,7 @@ html[lang="bn-off"] .hero-reference-word {
 
     .hero-reference-word,
     html[lang="bn-off"] .hero-reference-word {
-        top: 18px;
+        top: 4px;
         width: calc(100% - 28px);
         padding-inline: 14px;
         font-size: clamp(1.28rem, 5.4vw, 1.65rem);
@@ -1838,7 +1838,7 @@ html[lang="bn-off"] .hero-reference-word {
     }
 
     .hero-reference-copy {
-        top: 92px;
+        top: 18px;
     }
 
     .hero-reference-copy h1 {
@@ -1864,8 +1864,8 @@ html[lang="bn-off"] .hero-reference-word {
 @media (max-width: 380px) {
     .hero-reference { min-height: 870px; }
     .hero-reference-word,
-    html[lang="bn-off"] .hero-reference-word { top: 16px; font-size: 1.18rem; }
-    .hero-reference-copy { top: 88px; }
+    html[lang="bn-off"] .hero-reference-word { top: 4px; font-size: 1.18rem; }
+    .hero-reference-copy { top: 14px; }
     .hero-reference-copy h1 { font-size: 1.7rem; }
 }
 
