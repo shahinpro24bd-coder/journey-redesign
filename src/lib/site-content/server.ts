@@ -1,6 +1,7 @@
 import fallbackSnapshot from "./fallback.generated.json";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
+import { getPublicBackendConfig } from "./public-config";
 
 /** Every language the site is published in, in switcher order. */
 export const SITE_LANGS = ["en", "ar"] as const;
@@ -44,8 +45,7 @@ export async function getContentSnapshot(force = false): Promise<ContentSnapshot
 }
 
 async function loadSnapshot(): Promise<ContentSnapshot> {
-  const url = process.env['SUPABASE_URL'];
-  const key = process.env['SUPABASE_PUBLISHABLE_KEY'];
+  const { url, key } = getPublicBackendConfig();
   if (!url || !key) return SNAPSHOT;
   try {
     const client = createClient<Database>(url, key, {
