@@ -386,7 +386,7 @@ function Editor({ email }: { email: string }) {
             Editing: {page.label} · {lang === "en" ? "English" : "Arabic"}
           </p>
         </div>
-        <span className="hidden text-xs text-muted-foreground md:inline">{email}</span>
+        <span className="hidden text-xs text-muted-foreground md:inline">{email.replace("@admin.local", "")}</span>
         <a href={`${page.path}?lang=${lang}`} target="_blank" rel="noreferrer" className="inline-flex h-8 items-center gap-1.5 rounded-md px-2 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground">
           <ExternalLink className="size-4" /> <span className="hidden sm:inline">View site</span>
         </a>
