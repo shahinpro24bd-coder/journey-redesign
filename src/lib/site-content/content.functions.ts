@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireAdminSession as requireSupabaseAuth } from "./auth-middleware";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 
@@ -122,6 +122,7 @@ export const ensureDefaultAdmin = createServerFn({ method: "POST" })
     if (data.username.trim().toLowerCase() !== DEFAULT_ADMIN.username || data.password !== DEFAULT_ADMIN.password) {
       return { created: false };
     }
+    if (!process.env["SUPABASE_SERVICE_ROLE_KEY"]) return { created: false };
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { count } = await supabaseAdmin.from("user_roles").select("id", { count: "exact", head: true }).eq("role", "admin");
     if (count) {
