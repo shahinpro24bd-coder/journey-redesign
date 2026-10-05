@@ -1838,7 +1838,7 @@ html[lang="bn-off"] .hero-reference-word {
     }
 
     .hero-reference-copy {
-        top: 52px;
+        top: 18px;
     }
 
     .hero-reference-copy h1 {
@@ -1865,7 +1865,7 @@ html[lang="bn-off"] .hero-reference-word {
     .hero-reference { min-height: 870px; }
     .hero-reference-word,
     html[lang="bn-off"] .hero-reference-word { top: 4px; font-size: 1.18rem; }
-    .hero-reference-copy { top: 48px; }
+    .hero-reference-copy { top: 14px; }
     .hero-reference-copy h1 { font-size: 1.7rem; }
 }
 
