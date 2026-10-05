@@ -15,6 +15,13 @@
       "when": 1791202691370,
       "tag": "0001_site_content_read_policy",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791206345441,
+      "tag": "0002_sync_schema",
+      "breakpoints": true
     }
   ]
 }
