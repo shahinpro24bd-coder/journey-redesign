@@ -1859,8 +1859,9 @@ html[lang="bn-off"] .hero-reference-word {
 @media (max-width: 380px) {
     .hero-reference { min-height: 870px; }
     .hero-reference-word,
-    html[lang="bn-off"] .hero-reference-word { top: 66px; font-size: 1.18rem; }
-    .hero-reference-copy { top: 142px; }
+    html[lang="bn-off"] .hero-reference-word { top: 16px; font-size: 1.18rem; }
+    .hero-reference-copy { top: 88px; }
+    .hero-reference-copy h1 { font-size: 1.7rem; }
 }
 
 /* Refined chambers */
