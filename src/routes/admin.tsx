@@ -18,10 +18,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { TREATMENTS } from "@/lib/site-content/treatments";
 import {
   claimFirstAdmin,
+  ensureDefaultAdmin,
+  usernameToEmail,
   getAdminStatus,
   publishImage,
   publishTextChanges,
@@ -95,66 +96,44 @@ function CenteredLoader() {
 }
 
 function LoginScreen() {
-  const [mode, setMode] = useState<"in" | "up">("in");
-  const [email, setEmail] = useState("");
+  const ensureFn = useServerFn(ensureDefaultAdmin);
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState<Status>({ tone: "idle", message: "" });
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setMsg({ tone: "busy", message: "" });
-    if (mode === "in") {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) setMsg({ tone: "error", message: error.message });
-    } else {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { emailRedirectTo: `${window.location.origin}/admin` },
-      });
-      setMsg(
-        error
-          ? { tone: "error", message: error.message }
-          : { tone: "ok", message: "Check your email to confirm the account, then sign in." },
-      );
+    const email = usernameToEmail(username);
+    let { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      const r = await ensureFn({ data: { username, password } }).catch(() => ({ created: false }));
+      if (r.created) ({ error } = await supabase.auth.signInWithPassword({ email, password }));
     }
-  }
-
-  async function google() {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/admin`,
-    });
-    if (result.error) setMsg({ tone: "error", message: "Google sign-in failed." });
+    if (error) setMsg({ tone: "error", message: "Wrong username or password." });
   }
 
   return (
     <div className="flex min-h-dvh items-center justify-center bg-muted px-4">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-7 shadow-sm">
-        <div className="mb-5 flex items-center gap-2 text-card-foreground">
-          <ShieldCheck className="size-5" />
-          <h1 className="text-lg font-semibold">Content Management</h1>
+        <div className="mb-5 flex items-center gap-3 text-card-foreground">
+          <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <ShieldCheck className="size-5" />
+          </div>
+          <div>
+            <h1 className="text-lg font-semibold">Admin Panel</h1>
+            <p className="text-xs text-muted-foreground">Sign in to edit the website.</p>
+          </div>
         </div>
-        <p className="mb-5 text-sm text-muted-foreground">
-          {mode === "in" ? "Sign in to edit the website." : "Create an account for the admin panel."}
-        </p>
-        <Button type="button" variant="outline" className="w-full" onClick={google}>
-          Continue with Google
-        </Button>
-        <div className="my-4 text-center text-xs text-muted-foreground">or</div>
         <form onSubmit={submit} className="space-y-3">
-          <Input type="email" required placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} aria-label="Email" />
-          <Input type="password" required minLength={6} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} aria-label="Password" />
-          {msg.message ? (
-            <p className={"text-xs " + (msg.tone === "error" ? "text-destructive" : "text-muted-foreground")}>{msg.message}</p>
-          ) : null}
+          <Input required autoComplete="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} aria-label="Username" />
+          <Input type="password" required autoComplete="current-password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} aria-label="Password" />
+          {msg.message ? <p className="text-xs text-destructive">{msg.message}</p> : null}
           <Button type="submit" className="w-full" disabled={msg.tone === "busy"}>
             {msg.tone === "busy" ? <Loader2 className="animate-spin" /> : null}
-            {mode === "in" ? "Sign in" : "Create account"}
+            Sign in
           </Button>
         </form>
-        <button type="button" className="mt-4 w-full text-center text-xs text-muted-foreground underline" onClick={() => setMode(mode === "in" ? "up" : "in")}>
-          {mode === "in" ? "No account yet? Create one" : "Already have an account? Sign in"}
-        </button>
       </div>
     </div>
   );
@@ -200,7 +179,7 @@ function Notice({ title, body, email, action }: { title: string; body: string; e
       <div className="w-full max-w-md space-y-4 rounded-2xl border border-border bg-card p-7 shadow-sm">
         <h1 className="text-lg font-semibold text-card-foreground">{title}</h1>
         <p className="text-sm text-muted-foreground">{body}</p>
-        <p className="text-xs text-muted-foreground">Signed in as {email}</p>
+        <p className="text-xs text-muted-foreground">Signed in as {email.replace("@admin.local", "")}</p>
         <div className="flex gap-2">
           {action}
           <Button variant="ghost" onClick={signOut}><LogOut /> Sign out</Button>
