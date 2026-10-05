@@ -122,13 +122,19 @@ export const ensureDefaultAdmin = createServerFn({ method: "POST" })
     }
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { count } = await supabaseAdmin.from("user_roles").select("id", { count: "exact", head: true }).eq("role", "admin");
-    if (count) return { created: false };
+    if (count) {
+      console.error("Default admin skipped: admin already exists");
+      return { created: false };
+    }
     const { data: u, error } = await supabaseAdmin.auth.admin.createUser({
       email: usernameToEmail(DEFAULT_ADMIN.username),
       password: DEFAULT_ADMIN.password,
       email_confirm: true,
     });
-    if (error || !u.user) return { created: false };
+    if (error || !u.user) {
+      console.error("Default admin creation failed:", error?.message);
+      return { created: false };
+    }
     await supabaseAdmin.from("user_roles").insert({ user_id: u.user.id, role: "admin" });
     return { created: true };
   });
