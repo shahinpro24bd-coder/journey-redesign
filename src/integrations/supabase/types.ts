@@ -14,113 +14,16 @@ export type Database = {
   }
   public: {
     Tables: {
-      site_image_overrides: {
-        Row: {
-          mime_type: string
-          slot: string
-          storage_path: string
-          updated_at: string
-          updated_by: string | null
-        }
-        Insert: {
-          mime_type: string
-          slot: string
-          storage_path: string
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Update: {
-          mime_type?: string
-          slot?: string
-          storage_path?: string
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Relationships: []
-      }
-      site_publication: {
-        Row: {
-          id: boolean
-          published_at: string
-          published_by: string | null
-          version: number
-        }
-        Insert: {
-          id?: boolean
-          published_at?: string
-          published_by?: string | null
-          version?: number
-        }
-        Update: {
-          id?: boolean
-          published_at?: string
-          published_by?: string | null
-          version?: number
-        }
-        Relationships: []
-      }
-      site_text_overrides: {
-        Row: {
-          content_key: string
-          language: string
-          updated_at: string
-          updated_by: string | null
-          value: string
-        }
-        Insert: {
-          content_key: string
-          language: string
-          updated_at?: string
-          updated_by?: string | null
-          value: string
-        }
-        Update: {
-          content_key?: string
-          language?: string
-          updated_at?: string
-          updated_by?: string | null
-          value?: string
-        }
-        Relationships: []
-      }
-      user_roles: {
-        Row: {
-          created_at: string
-          id: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          role: Database["public"]["Enums"]["app_role"]
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          role?: Database["public"]["Enums"]["app_role"]
-          user_id?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      claim_first_admin: { Args: never; Returns: boolean }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
-      is_admin_configured: { Args: never; Returns: boolean }
+      [_ in never]: never
     }
     Enums: {
-      app_role: "admin"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -247,8 +150,6 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {
-      app_role: ["admin"],
-    },
+    Enums: {},
   },
 } as const
