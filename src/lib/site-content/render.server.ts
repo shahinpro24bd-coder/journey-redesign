@@ -28,7 +28,7 @@ export async function renderSitePage(request: Request, slug: string): Promise<Re
       ? cookieLang
       : "en";
 
-  const snapshot = await getContentSnapshot(editMode);
+  const snapshot = await getContentSnapshot();
   const texts = snapshot.langs[lang];
 
   // Fully rendered pages are memoised per slug+language+content version, so a
@@ -80,7 +80,7 @@ export async function renderTreatmentPage(request: Request, slug: string): Promi
   const langParam = url.searchParams.get("lang") || "";
   const cookieLang = request.headers.get("cookie")?.match(/(?:^|;\s*)site_lang=(en|ar)(?:;|$)/)?.[1];
   const lang: SiteLang = isSiteLang(langParam) ? langParam : cookieLang && isSiteLang(cookieLang) ? cookieLang : "en";
-  const snapshot = await getContentSnapshot(editMode);
+  const snapshot = await getContentSnapshot();
   const cacheKey = `t:${slug}|${lang}|${snapshot.version}`;
   if (!editMode) {
     const hit = RENDER_CACHE.get(cacheKey);
